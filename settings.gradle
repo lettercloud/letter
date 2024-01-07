@@ -1,0 +1,13 @@
+rootProject.name = 'letter'
+//letter-boot
+include 'letter-boot:letter-boot-loader'
+include 'letter-boot:letter-metrics-starter'
+include 'letter-boot:letter-spring-starter'
+include 'letter-boot:letter-dubbo-starter'
+include 'letter-simple:letter-boot-simple:letter-boot-simple-api'
+include 'letter-simple:letter-boot-simple:letter-boot-simple-dubbo-provider'
+include 'letter-simple:letter-boot-simple:letter-boot-simple-dubbo-consumer'
+include 'letter-console:letter-console-common'
+include 'letter-console:letter-console-logging'
+include 'letter-console:letter-console-system'
+

@@ -1,0 +1,4 @@
+dependencies {
+  api project(':letter-boot:letter-spring-starter')
+  api project(':letter-boot:letter-dubbo-starter')
+}
