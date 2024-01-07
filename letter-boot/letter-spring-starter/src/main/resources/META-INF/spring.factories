@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+org.letter.cloud.spring.CommonAutoConfiguration
+org.springframework.context.ApplicationListener=\
+org.letter.cloud.spring.starter.LogoApplicationListener
+

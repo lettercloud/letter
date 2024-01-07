@@ -1,0 +1,14 @@
+dependencies {
+  api project(':letter-boot:letter-boot-loader')
+  api project(':letter-boot:letter-metrics-starter')
+  api "org.apache.logging.log4j:log4j-api:${log4j_version}"
+  api "org.apache.logging.log4j:log4j-core:${log4j_version}"
+  api "org.apache.commons:commons-lang3:${commons_lang3_version}"
+  api "org.springframework.boot:spring-boot-starter:${springboot_version}"
+  api "org.springframework.boot:spring-boot-starter-web:${springboot_version}"
+  api "org.springframework.boot:spring-boot-starter-aop:${springboot_version}"
+  api "org.springframework.boot:spring-boot-starter-actuator:${springboot_version}"
+  api "org.springframework.boot:spring-boot-configuration-processor:${springboot_version}"
+
+}
+
