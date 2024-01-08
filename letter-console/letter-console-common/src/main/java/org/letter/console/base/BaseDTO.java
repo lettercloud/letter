@@ -1,8 +1,7 @@
 package org.letter.console.base;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Timestamp;
@@ -11,8 +10,6 @@ import java.sql.Timestamp;
  * @author Zheng Jie
  * @date 2019年10月24日20:48:53
  */
-@Getter
-@Setter
 public class BaseDTO  implements Serializable {
 
     private String createBy;
@@ -23,7 +20,39 @@ public class BaseDTO  implements Serializable {
 
     private Timestamp updateTime;
 
-    @Override
+	public String getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(String createBy) {
+		this.createBy = createBy;
+	}
+
+	public String getUpdateBy() {
+		return updateBy;
+	}
+
+	public void setUpdateBy(String updateBy) {
+		this.updateBy = updateBy;
+	}
+
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
+
+	public Timestamp getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Timestamp updateTime) {
+		this.updateTime = updateTime;
+	}
+
+	@Override
     public String toString() {
         ToStringBuilder builder = new ToStringBuilder(this);
         Field[] fields = this.getClass().getDeclaredFields();

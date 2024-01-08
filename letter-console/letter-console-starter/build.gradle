@@ -1,0 +1,6 @@
+dependencies {
+    api "cn.hutool:hutool-all:${hutool_version}"
+    api "org.springframework.boot:spring-boot-starter-web:${springboot_version}"
+    api "me.zhyd.oauth:JustAuth:1.16.6"
+
+}

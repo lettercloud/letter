@@ -10,4 +10,5 @@ include 'letter-simple:letter-boot-simple:letter-boot-simple-dubbo-consumer'
 include 'letter-console:letter-console-common'
 include 'letter-console:letter-console-logging'
 include 'letter-console:letter-console-system'
+include 'letter-console:letter-console-starter'
 
