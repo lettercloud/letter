@@ -5,7 +5,6 @@ import org.apache.dubbo.rpc.Invocation;
 import org.apache.dubbo.rpc.Invoker;
 import org.apache.dubbo.rpc.Result;
 import org.apache.dubbo.rpc.RpcException;
-import org.apache.dubbo.rpc.model.ServiceModel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.letter.rpc.dubbo.filter.DubboMetricsFilter;
@@ -91,16 +90,6 @@ class DubboMetricsFilterTest {
 				}
 
 				@Override
-				public Map<String, Object> copyObjectAttachments() {
-					return null;
-				}
-
-				@Override
-				public void foreachAttachment(Consumer<Map.Entry<String, Object>> consumer) {
-
-				}
-
-				@Override
 				public void setAttachment(String key, String value) {
 
 				}
@@ -156,16 +145,6 @@ class DubboMetricsFilterTest {
 				}
 
 				@Override
-				public void setServiceModel(ServiceModel serviceModel) {
-
-				}
-
-				@Override
-				public ServiceModel getServiceModel() {
-					return null;
-				}
-
-				@Override
 				public Object put(Object key, Object value) {
 					return null;
 				}
@@ -180,15 +159,6 @@ class DubboMetricsFilterTest {
 					return null;
 				}
 
-				@Override
-				public void addInvokedInvoker(Invoker<?> invoker) {
-
-				}
-
-				@Override
-				public List<Invoker<?>> getInvokedInvokers() {
-					return null;
-				}
 			});
 		} catch (Exception e) {
 			e.printStackTrace();

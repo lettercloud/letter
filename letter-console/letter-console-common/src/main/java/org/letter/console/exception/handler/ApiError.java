@@ -18,8 +18,8 @@ package org.letter.console.exception.handler;
 import lombok.Data;
 
 /**
- * @author Zheng Jie
- * @date 2018-11-23
+ * ApiError
+ * @author letter
  */
 @Data
 class ApiError {

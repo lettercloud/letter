@@ -18,8 +18,9 @@ package org.letter.console.exception;
 import org.springframework.util.StringUtils;
 
 /**
- * @author Zheng Jie
- * @date 2018-11-23
+ * EntityNotFoundException
+ *
+ * @author letter
  */
 public class EntityNotFoundException extends RuntimeException {
 

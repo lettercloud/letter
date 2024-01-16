@@ -14,8 +14,8 @@ import java.util.UUID;
 public class DubboControl {
 
 	//注册中心负载-dubbo
-	@DubboReference(protocol = "dubbo", check = false)
-	private MessageService messageServiceDubbo;
+//	@DubboReference(protocol = "dubbo", check = false)
+//	private MessageService messageServiceDubbo;
 
 
 	@GetMapping("/dubbo/test")
@@ -24,7 +24,8 @@ public class DubboControl {
 		MessageRequest messageRequest = new MessageRequest();
 		messageRequest.setTid(UUID.randomUUID().toString());
 		System.out.println("call send for dubbo");
-		MessageResponse messageResponse = messageServiceDubbo.send(messageRequest);
+//		MessageResponse messageResponse = messageServiceDubbo.send(messageRequest);
+		MessageResponse messageResponse = new MessageResponse();
 		return messageResponse;
 	}
 

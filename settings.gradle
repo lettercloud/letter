@@ -9,6 +9,6 @@ include 'letter-simple:letter-boot-simple:letter-boot-simple-dubbo-provider'
 include 'letter-simple:letter-boot-simple:letter-boot-simple-dubbo-consumer'
 include 'letter-console:letter-console-common'
 include 'letter-console:letter-console-logging'
-include 'letter-console:letter-console-system'
-include 'letter-console:letter-console-starter'
+include 'letter-console:letter-console-manager'
+include 'letter-console:letter-console-app'
 
