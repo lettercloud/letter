@@ -1,21 +1,7 @@
-/*
- *  Copyright 2019-2020 Zheng Jie
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
 package org.letter.console.modules.security.service;
 
 import cn.hutool.core.util.RandomUtil;
+import lombok.RequiredArgsConstructor;
 import org.letter.console.modules.security.config.bean.LoginProperties;
 import org.letter.console.modules.security.service.dto.JwtUserDto;
 import org.letter.console.service.RedisService;
@@ -26,17 +12,18 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * @author Zheng Jie
- * @description 用户缓存管理
- * @date 2022-05-26
+ * 用户缓存管理
+ * @author letter
+ * @description
  **/
 @Component
+@RequiredArgsConstructor
 public class UserCacheManager {
 
-    @Resource
-    private RedisService redisUtils;
-    @Value("${login.user-cache.idle-time}")
-    private long idleTime;
+
+    private final RedisService redisService;
+
+	private final LoginProperties loginProperties;
 
     /**
      * 返回用户缓存
@@ -46,7 +33,7 @@ public class UserCacheManager {
     public JwtUserDto getUserCache(String userName) {
         if (StringUtils.isNotEmpty(userName)) {
             // 获取数据
-            Object obj = redisUtils.get(LoginProperties.cacheKey + userName);
+            Object obj = redisService.get(LoginProperties.cacheKey + userName);
             if(obj != null){
                 return (JwtUserDto)obj;
             }
@@ -62,8 +49,8 @@ public class UserCacheManager {
     public void addUserCache(String userName, JwtUserDto user) {
         if (StringUtils.isNotEmpty(userName)) {
             // 添加数据, 避免数据同时过期
-            long time = idleTime + RandomUtil.randomInt(900, 1800);
-            redisUtils.set(LoginProperties.cacheKey + userName, user, time);
+            long time = loginProperties.getCacheIdleTime() + RandomUtil.randomInt(900, 1800);
+            redisService.set(LoginProperties.cacheKey + userName, user, time);
         }
     }
 
@@ -76,7 +63,7 @@ public class UserCacheManager {
     public void cleanUserCache(String userName) {
         if (StringUtils.isNotEmpty(userName)) {
             // 清除数据
-            redisUtils.del(LoginProperties.cacheKey + userName);
+            redisService.del(LoginProperties.cacheKey + userName);
         }
     }
 }

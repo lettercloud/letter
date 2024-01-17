@@ -38,7 +38,9 @@ public class LoginProperties {
      */
     private boolean singleLogin = false;
 
-    private LoginCode loginCode;
+    private LoginCode loginCode = new LoginCode();
+
+	private long cacheIdleTime = 21600L;
 
     public static final String cacheKey = "user-login-cache:";
 

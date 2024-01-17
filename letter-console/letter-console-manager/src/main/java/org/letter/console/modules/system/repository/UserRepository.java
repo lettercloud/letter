@@ -20,6 +20,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -58,6 +60,7 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
      * @param lastPasswordResetTime /
      */
     @Modifying
+	@Transactional
     @Query(value = "update sys_user set password = ?2 , pwd_reset_time = ?3 where username = ?1",nativeQuery = true)
     void updatePass(String username, String pass, Date lastPasswordResetTime);
 

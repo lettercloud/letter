@@ -4,10 +4,10 @@ spring:
     driver-class-name: org.h2.Driver
     username: test
     password: 123456
-  jpa:
-    database: h2
-    show-sql: true
-    open-in-view: true   #这个是为了进行视图显示，SpringBoot提示的Warn
+#  jpa:
+#    database: h2
+#    show-sql: true
+#    open-in-view: true   #这个是为了进行视图显示，SpringBoot提示的Warn
   h2:
     console:
       enabled: true

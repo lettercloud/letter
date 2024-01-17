@@ -30,8 +30,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class VerifyServiceImpl implements VerifyService {
 
-    @Value("${code.expiration}")
-    private Long expiration;
+    private Long expiration = 300L;
     private final RedisService redisUtils;
 //
 //    @Override
