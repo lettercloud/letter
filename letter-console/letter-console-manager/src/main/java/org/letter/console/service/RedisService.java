@@ -15,8 +15,6 @@
  */
 package org.letter.console.service;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -228,8 +226,8 @@ public class RedisService {
      * @return
      */
     public List<Object> multiGet(List<String> keys) {
-        List list = redisTemplate.opsForValue().multiGet(Sets.newHashSet(keys));
-        List resultList = Lists.newArrayList();
+        List list = redisTemplate.opsForValue().multiGet(new HashSet<>(keys));
+        List resultList = new ArrayList();
         Optional.ofNullable(list).ifPresent(e-> list.forEach(ele-> Optional.ofNullable(ele).ifPresent(resultList::add)));
         return resultList;
     }

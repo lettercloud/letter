@@ -1,85 +1,69 @@
-/*
- *  Copyright 2019-2020 Zheng Jie
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *  http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- */
-package org.letter.console.modules.quartz.service.impl;
+package org.letter.console.task.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.letter.console.exception.BadRequestException;
-import org.letter.console.modules.quartz.domain.QuartzJob;
-import org.letter.console.modules.quartz.domain.QuartzLog;
-import org.letter.console.modules.quartz.repository.QuartzJobRepository;
-import org.letter.console.modules.quartz.repository.QuartzLogRepository;
-import org.letter.console.modules.quartz.service.QuartzJobService;
-import org.letter.console.modules.quartz.service.dto.JobQueryCriteria;
-import org.letter.console.modules.quartz.utils.QuartzManage;
-import org.letter.console.service.RedisService;
+import org.letter.console.task.domain.Task;
+import org.letter.console.task.domain.TaskLog;
+import org.letter.console.task.repository.TaskLogRepository;
+import org.letter.console.task.repository.TaskRepository;
+import org.letter.console.task.service.TaskService;
+import org.letter.console.task.service.dto.TaskQueryCriteria;
+import org.letter.console.task.utils.QuartzManage;
 import org.letter.console.utils.*;
 import org.quartz.CronExpression;
+import org.quartz.Scheduler;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.*;
 
 /**
- * @author Zheng Jie
- * @date 2019-01-07
+ * @author letter
  */
 @RequiredArgsConstructor
 @Service(value = "quartzJobService")
-public class QuartzJobServiceImpl implements QuartzJobService {
+public class TaskServiceImpl implements TaskService {
 
-    private final QuartzJobRepository quartzJobRepository;
-    private final QuartzLogRepository quartzLogRepository;
+    private final TaskRepository quartzJobRepository;
+    private final TaskLogRepository quartzLogRepository;
     private final QuartzManage quartzManage;
-    private final RedisService redisUtils;
 
     @Override
-    public PageResult<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable){
+    public PageResult<Task> queryAll(TaskQueryCriteria criteria, Pageable pageable){
         return PageUtil.toPage(quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable));
     }
 
     @Override
-    public PageResult<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable){
+    public PageResult<TaskLog> queryAllLog(TaskQueryCriteria criteria, Pageable pageable){
         return PageUtil.toPage(quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable));
     }
 
     @Override
-    public List<QuartzJob> queryAll(JobQueryCriteria criteria) {
+    public List<Task> queryAll(TaskQueryCriteria criteria) {
         return quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder));
     }
 
     @Override
-    public List<QuartzLog> queryAllLog(JobQueryCriteria criteria) {
+    public List<TaskLog> queryAllLog(TaskQueryCriteria criteria) {
         return quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder));
     }
 
     @Override
-    public QuartzJob findById(Long id) {
-        QuartzJob quartzJob = quartzJobRepository.findById(id).orElseGet(QuartzJob::new);
+    public Task findById(Long id) {
+        Task quartzJob = quartzJobRepository.findById(id).orElseGet(Task::new);
         ValidationUtil.isNull(quartzJob.getId(),"QuartzJob","id",id);
         return quartzJob;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void create(QuartzJob resources) {
+    public void create(Task resources) {
         if (!CronExpression.isValidExpression(resources.getCronExpression())){
             throw new BadRequestException("cron表达式格式错误");
         }
@@ -89,10 +73,8 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(QuartzJob resources) {
-        if (!CronExpression.isValidExpression(resources.getCronExpression())){
-            throw new BadRequestException("cron表达式格式错误");
-        }
+    public void update(Task resources) {
+
         if(StringUtils.isNotBlank(resources.getSubTask())){
             List<String> tasks = Arrays.asList(resources.getSubTask().split("[,，]"));
             if (tasks.contains(resources.getId().toString())) {
@@ -104,7 +86,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     }
 
     @Override
-    public void updateIsPause(QuartzJob quartzJob) {
+    public void updateIsPause(Task quartzJob) {
         if (quartzJob.getIsPause()) {
             quartzManage.resumeJob(quartzJob);
             quartzJob.setIsPause(false);
@@ -116,7 +98,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     }
 
     @Override
-    public void execution(QuartzJob quartzJob) {
+    public void execution(Task quartzJob) {
         quartzManage.runJobNow(quartzJob);
     }
 
@@ -124,7 +106,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Long> ids) {
         for (Long id : ids) {
-            QuartzJob quartzJob = findById(id);
+            Task quartzJob = findById(id);
             quartzManage.deleteJob(quartzJob);
             quartzJobRepository.delete(quartzJob);
         }
@@ -139,30 +121,30 @@ public class QuartzJobServiceImpl implements QuartzJobService {
                 // 如果是手动清除子任务id，会出现id为空字符串的问题
                 continue;
             }
-            QuartzJob quartzJob = findById(Long.parseLong(id));
+            Task quartzJob = findById(Long.parseLong(id));
             // 执行任务
             String uuid = IdUtil.simpleUUID();
             quartzJob.setUuid(uuid);
             // 执行任务
             execution(quartzJob);
             // 获取执行状态，如果执行失败则停止后面的子任务执行
-            Boolean result = (Boolean) redisUtils.get(uuid);
-            while (result == null) {
-                // 休眠5秒，再次获取子任务执行情况
-                Thread.sleep(5000);
-                result = (Boolean) redisUtils.get(uuid);
-            }
-            if(!result){
-                redisUtils.del(uuid);
-                break;
-            }
+//            Boolean result = (Boolean) redisUtils.get(uuid);
+//            while (result == null) {
+//                // 休眠5秒，再次获取子任务执行情况
+//                Thread.sleep(5000);
+//                result = (Boolean) redisUtils.get(uuid);
+//            }
+//            if(!result){
+//                redisUtils.del(uuid);
+//                break;
+//            }
         }
     }
 
     @Override
-    public void download(List<QuartzJob> quartzJobs, HttpServletResponse response) throws IOException {
+    public void download(List<Task> quartzJobs, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (QuartzJob quartzJob : quartzJobs) {
+        for (Task quartzJob : quartzJobs) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("任务名称", quartzJob.getJobName());
             map.put("Bean名称", quartzJob.getBeanName());
@@ -178,9 +160,9 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     }
 
     @Override
-    public void downloadLog(List<QuartzLog> queryAllLog, HttpServletResponse response) throws IOException {
+    public void downloadLog(List<TaskLog> queryAllLog, HttpServletResponse response) throws IOException {
         List<Map<String, Object>> list = new ArrayList<>();
-        for (QuartzLog quartzLog : queryAllLog) {
+        for (TaskLog quartzLog : queryAllLog) {
             Map<String,Object> map = new LinkedHashMap<>();
             map.put("任务名称", quartzLog.getJobName());
             map.put("Bean名称", quartzLog.getBeanName());

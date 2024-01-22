@@ -1,5 +1,6 @@
 package org.letter.cloud.spring;
 
+import jakarta.servlet.Filter;
 import org.letter.cloud.spring.context.SpringContextUtil;
 import org.letter.cloud.spring.filter.MetricsFilter;
 import org.letter.cloud.spring.log.LoggerConfiguration;
@@ -7,7 +8,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.Filter;
 import java.util.Arrays;
 
 /**

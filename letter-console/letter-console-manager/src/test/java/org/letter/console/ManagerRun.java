@@ -1,6 +1,6 @@
 package org.letter.console;
 
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.letter.console.annotation.rest.AnonymousGetMapping;
 import org.letter.console.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @EnableAsync
 @RestController
-@Api(hidden = true)
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableTransactionManagement

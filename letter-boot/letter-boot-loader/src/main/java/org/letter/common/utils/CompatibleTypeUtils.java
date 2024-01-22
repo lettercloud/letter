@@ -52,22 +52,22 @@ public class CompatibleTypeUtils {
                 return new BigDecimal(string);
             }
             if (type == Short.class || type == short.class) {
-                return new Short(string);
+                return Short.valueOf(string);
             }
             if (type == Integer.class || type == int.class) {
-                return new Integer(string);
+                return Integer.valueOf(string);
             }
             if (type == Long.class || type == long.class) {
-                return new Long(string);
+                return Long.valueOf(string);
             }
             if (type == Double.class || type == double.class) {
-                return new Double(string);
+                return Double.valueOf(string);
             }
             if (type == Float.class || type == float.class) {
-                return new Float(string);
+                return  Float.valueOf(string);
             }
             if (type == Byte.class || type == byte.class) {
-                return new Byte(string);
+                return Byte.valueOf(string);
             }
             if (type == Boolean.class || type == boolean.class) {
                 return Boolean.valueOf(string);

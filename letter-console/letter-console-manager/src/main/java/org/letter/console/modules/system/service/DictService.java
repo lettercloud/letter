@@ -20,7 +20,7 @@ import org.letter.console.modules.system.domain.Dict;
 import org.letter.console.modules.system.service.dto.DictDto;
 import org.letter.console.modules.system.service.dto.DictQueryCriteria;
 import org.springframework.data.domain.Pageable;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;

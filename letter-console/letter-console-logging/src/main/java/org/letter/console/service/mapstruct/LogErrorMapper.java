@@ -22,8 +22,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 /**
- * @author Zheng Jie
- * @date 2019-5-22
+ * @author letter
  */
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LogErrorMapper extends BaseMapper<SysLogErrorDto, SysLog> {

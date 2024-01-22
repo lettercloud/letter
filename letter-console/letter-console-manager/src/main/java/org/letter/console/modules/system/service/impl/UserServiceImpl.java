@@ -15,6 +15,7 @@
  */
 package org.letter.console.modules.system.service.impl;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.letter.console.modules.system.service.dto.*;
 import org.letter.console.service.RedisService;
@@ -38,8 +39,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.constraints.NotBlank;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;

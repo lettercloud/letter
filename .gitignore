@@ -5,6 +5,7 @@ letter.pid
 build
 /refer
 out
+/data
 /out
 /config
 /felix-cache

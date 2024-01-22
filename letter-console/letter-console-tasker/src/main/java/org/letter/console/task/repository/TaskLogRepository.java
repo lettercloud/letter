@@ -13,27 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.letter.console.modules.quartz.service.dto;
+package org.letter.console.task.repository;
 
-import lombok.Data;
-import org.letter.console.annotation.Query;
-
-import java.sql.Timestamp;
-import java.util.List;
+import org.letter.console.task.domain.TaskLog;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 /**
  * @author Zheng Jie
- * @date 2019-6-4 10:33:02
+ * @date 2019-01-07
  */
-@Data
-public class JobQueryCriteria {
+public interface TaskLogRepository extends JpaRepository<TaskLog,Long>, JpaSpecificationExecutor<TaskLog> {
 
-    @Query(type = Query.Type.INNER_LIKE)
-    private String jobName;
-
-    @Query
-    private Boolean isSuccess;
-
-    @Query(type = Query.Type.BETWEEN)
-    private List<Timestamp> createTime;
 }

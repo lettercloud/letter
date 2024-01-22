@@ -13,23 +13,23 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.letter.console.modules.quartz.service;
+package org.letter.console.task.service;
 
-import org.letter.console.modules.quartz.domain.QuartzJob;
-import org.letter.console.modules.quartz.domain.QuartzLog;
-import org.letter.console.modules.quartz.service.dto.JobQueryCriteria;
+import org.letter.console.task.domain.Task;
+import org.letter.console.task.domain.TaskLog;
+import org.letter.console.task.service.dto.TaskQueryCriteria;
 import org.letter.console.utils.PageResult;
 import org.springframework.data.domain.Pageable;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
 /**
- * @author Zheng Jie
+ * @author letter
  * @date 2019-01-07
  */
-public interface QuartzJobService {
+public interface TaskService {
 
     /**
      * 分页查询
@@ -37,14 +37,14 @@ public interface QuartzJobService {
      * @param pageable 分页参数
      * @return /
      */
-    PageResult<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable);
+    PageResult<Task> queryAll(TaskQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部
      * @param criteria 条件
      * @return /
      */
-    List<QuartzJob> queryAll(JobQueryCriteria criteria);
+    List<Task> queryAll(TaskQueryCriteria criteria);
 
     /**
      * 分页查询日志
@@ -52,26 +52,26 @@ public interface QuartzJobService {
      * @param pageable 分页参数
      * @return /
      */
-    PageResult<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable);
+    PageResult<TaskLog> queryAllLog(TaskQueryCriteria criteria, Pageable pageable);
 
     /**
      * 查询全部
      * @param criteria 条件
      * @return /
      */
-    List<QuartzLog> queryAllLog(JobQueryCriteria criteria);
+    List<TaskLog> queryAllLog(TaskQueryCriteria criteria);
 
     /**
      * 创建
      * @param resources /
      */
-    void create(QuartzJob resources);
+    void create(Task resources);
 
     /**
      * 编辑
      * @param resources /
      */
-    void update(QuartzJob resources);
+    void update(Task resources);
 
     /**
      * 删除任务
@@ -84,19 +84,19 @@ public interface QuartzJobService {
      * @param id ID
      * @return /
      */
-    QuartzJob findById(Long id);
+    Task findById(Long id);
 
     /**
      * 更改定时任务状态
      * @param quartzJob /
      */
-    void updateIsPause(QuartzJob quartzJob);
+    void updateIsPause(Task quartzJob);
 
     /**
      * 立即执行定时任务
      * @param quartzJob /
      */
-    void execution(QuartzJob quartzJob);
+    void execution(Task quartzJob);
 
     /**
      * 导出定时任务
@@ -104,7 +104,7 @@ public interface QuartzJobService {
      * @param response /
      * @throws IOException /
      */
-    void download(List<QuartzJob> queryAll, HttpServletResponse response) throws IOException;
+    void download(List<Task> queryAll, HttpServletResponse response) throws IOException;
 
     /**
      * 导出定时任务日志
@@ -112,7 +112,7 @@ public interface QuartzJobService {
      * @param response /
      * @throws IOException /
      */
-    void downloadLog(List<QuartzLog> queryAllLog, HttpServletResponse response) throws IOException;
+    void downloadLog(List<TaskLog> queryAllLog, HttpServletResponse response) throws IOException;
 
     /**
      * 执行子任务

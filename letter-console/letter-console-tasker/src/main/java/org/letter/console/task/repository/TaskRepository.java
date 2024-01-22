@@ -13,9 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.letter.console.modules.quartz.repository;
+package org.letter.console.task.repository;
 
-import org.letter.console.modules.quartz.domain.QuartzJob;
+import org.letter.console.task.domain.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
@@ -24,11 +24,11 @@ import java.util.List;
  * @author Zheng Jie
  * @date 2019-01-07
  */
-public interface QuartzJobRepository extends JpaRepository<QuartzJob,Long>, JpaSpecificationExecutor<QuartzJob> {
+public interface TaskRepository extends JpaRepository<Task,Long>, JpaSpecificationExecutor<Task> {
 
     /**
      * 查询启用的任务
      * @return List
      */
-    List<QuartzJob> findByIsPauseIsFalse();
+    List<Task> findByIsPauseIsFalse();
 }

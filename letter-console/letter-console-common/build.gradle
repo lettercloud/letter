@@ -11,12 +11,12 @@ dependencies {
     api "org.springframework.boot:spring-boot-starter-cache:${springboot_version}"
     api "org.springframework.boot:spring-boot-starter-data-redis:${springboot_version}"
     api "org.springframework.boot:spring-boot-starter-validation:${springboot_version}"
-    api "org.apache.commons:commons-pool2:${commons_pool2_version}"
+    api 'com.github.xiaoymin:knife4j-openapi3-jakarta-spring-boot-starter:4.5.0'
+
     api "org.apache.commons:commons-lang3:${commons_lang3_version}"
     api "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:${log4jdbc_version}"
-    api "com.github.xiaoymin:knife4j-spring-boot-starter:${knife4j_spring_version}"
     api "com.alibaba:druid-spring-boot-starter:${druid_version}"
-    api "net.dreamlu:mica-ip2region:${ip2region_version}"
+
     api "org.apache.poi:poi:${poi_version}"
     api "org.apache.poi:poi-ooxml:${poi_version}"
     api "xerces:xercesImpl:${xerces_version}"
@@ -30,6 +30,9 @@ dependencies {
     api "com.github.whvcse:easy-captcha:${captcha_version}"
     api "nl.basjes.parse.useragent:yauaa:${yauaa_version}"
     api "mysql:mysql-connector-java:${mysql_version}"
+
+
+    //api "net.dreamlu:mica-ip2region:${ip2region_version}"
 
     api "org.projectlombok:lombok:${lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${lombok_version}"

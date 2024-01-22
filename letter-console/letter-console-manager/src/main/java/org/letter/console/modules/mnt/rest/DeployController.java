@@ -15,8 +15,8 @@
  */
 package org.letter.console.modules.mnt.rest;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.letter.console.annotation.Log;
 import org.letter.console.modules.mnt.domain.Deploy;
@@ -33,8 +33,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -47,7 +47,7 @@ import java.util.Set;
 * @date 2019-08-24
 */
 @RestController
-@Api(tags = "运维：部署管理")
+@Tag(name = "运维：部署管理")
 @RequiredArgsConstructor
 @RequestMapping("/api/deploy")
 public class DeployController {
@@ -56,14 +56,14 @@ public class DeployController {
     private final DeployService deployService;
 
 
-	@ApiOperation("导出部署数据")
+	@Operation(summary = "导出部署数据")
 	@GetMapping(value = "/download")
 	@PreAuthorize("@el.check('database:list')")
 	public void exportDeployData(HttpServletResponse response, DeployQueryCriteria criteria) throws IOException {
 		deployService.download(deployService.queryAll(criteria), response);
 	}
 
-    @ApiOperation(value = "查询部署")
+    @Operation(summary = "查询部署")
     @GetMapping
 	@PreAuthorize("@el.check('deploy:list')")
     public ResponseEntity<PageResult<DeployDto>> queryDeployData(DeployQueryCriteria criteria, Pageable pageable){
@@ -71,7 +71,7 @@ public class DeployController {
     }
 
     @Log("新增部署")
-    @ApiOperation(value = "新增部署")
+    @Operation(summary = "新增部署")
     @PostMapping
 	@PreAuthorize("@el.check('deploy:add')")
     public ResponseEntity<Object> createDeploy(@Validated @RequestBody Deploy resources){
@@ -80,7 +80,7 @@ public class DeployController {
     }
 
     @Log("修改部署")
-    @ApiOperation(value = "修改部署")
+    @Operation(summary = "修改部署")
     @PutMapping
 	@PreAuthorize("@el.check('deploy:edit')")
     public ResponseEntity<Object> updateDeploy(@Validated @RequestBody Deploy resources){
@@ -89,7 +89,7 @@ public class DeployController {
     }
 
 	@Log("删除部署")
-	@ApiOperation(value = "删除部署")
+	@Operation(summary = "删除部署")
 	@DeleteMapping
 	@PreAuthorize("@el.check('deploy:del')")
 	public ResponseEntity<Object> deleteDeploy(@RequestBody Set<Long> ids){
@@ -98,7 +98,7 @@ public class DeployController {
 	}
 
 	@Log("上传文件部署")
-	@ApiOperation(value = "上传文件部署")
+	@Operation(summary = "上传文件部署")
 	@PostMapping(value = "/upload")
 	@PreAuthorize("@el.check('deploy:edit')")
 	public ResponseEntity<Object> uploadDeploy(@RequestBody MultipartFile file, HttpServletRequest request)throws Exception{
@@ -121,7 +121,7 @@ public class DeployController {
 		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
 	@Log("系统还原")
-	@ApiOperation(value = "系统还原")
+	@Operation(summary = "系统还原")
 	@PostMapping(value = "/serverReduction")
 	@PreAuthorize("@el.check('deploy:edit')")
 	public ResponseEntity<Object> serverReduction(@Validated @RequestBody DeployHistory resources){
@@ -129,7 +129,7 @@ public class DeployController {
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	@Log("服务运行状态")
-	@ApiOperation(value = "服务运行状态")
+	@Operation(summary = "服务运行状态")
 	@PostMapping(value = "/serverStatus")
 	@PreAuthorize("@el.check('deploy:edit')")
 	public ResponseEntity<Object> serverStatus(@Validated @RequestBody Deploy resources){
@@ -137,7 +137,7 @@ public class DeployController {
     	return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	@Log("启动服务")
-	@ApiOperation(value = "启动服务")
+	@Operation(summary = "启动服务")
 	@PostMapping(value = "/startServer")
 	@PreAuthorize("@el.check('deploy:edit')")
 	public ResponseEntity<Object> startServer(@Validated @RequestBody Deploy resources){
@@ -145,7 +145,7 @@ public class DeployController {
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	@Log("停止服务")
-	@ApiOperation(value = "停止服务")
+	@Operation(summary = "停止服务")
 	@PostMapping(value = "/stopServer")
 	@PreAuthorize("@el.check('deploy:edit')")
 	public ResponseEntity<Object> stopServer(@Validated @RequestBody Deploy resources){

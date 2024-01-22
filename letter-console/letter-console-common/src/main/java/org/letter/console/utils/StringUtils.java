@@ -2,10 +2,8 @@ package org.letter.console.utils;
 
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import net.dreamlu.mica.ip2region.core.Ip2regionSearcher;
-import net.dreamlu.mica.ip2region.core.IpInfo;
-import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
@@ -23,11 +21,6 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 
     private static final char SEPARATOR = '_';
     private static final String UNKNOWN = "unknown";
-
-    /**
-     * 注入bean
-     */
-    private final static Ip2regionSearcher IP_SEARCHER = SpringContextHolder.getBean(Ip2regionSearcher.class);
 
     /**
      * 驼峰命名法工具
@@ -148,11 +141,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * 根据ip获取详细地址
      */
     public static String getCityInfo(String ip) {
-        IpInfo ipInfo = IP_SEARCHER.memorySearch(ip);
-        if(ipInfo != null){
-            return ipInfo.getAddress();
-        }
-        return null;
+        return "unknown";
     }
 
     public static String getBrowser(HttpServletRequest request) {

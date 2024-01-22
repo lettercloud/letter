@@ -13,15 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.letter.console.modules.quartz.utils;
+package org.letter.console.task.utils;
 
+import jakarta.annotation.Resource;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.letter.console.exception.BadRequestException;
-import org.letter.console.modules.quartz.domain.QuartzJob;
+import org.letter.console.task.domain.Task;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
 import java.util.Date;
 import static org.quartz.TriggerBuilder.newTrigger;
 
@@ -31,17 +32,17 @@ import static org.quartz.TriggerBuilder.newTrigger;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class QuartzManage {
 
     private static final String JOB_NAME = "TASK_";
 
-    @Resource
-    private Scheduler scheduler;
+	private final Scheduler scheduler;
 
-    public void addJob(QuartzJob quartzJob){
+    public void addJob(Task quartzJob){
         try {
             // 构建job信息
-            JobDetail jobDetail = JobBuilder.newJob(ExecutionJob.class).
+            JobDetail jobDetail = JobBuilder.newJob(ExecutionTask.class).
                     withIdentity(JOB_NAME + quartzJob.getId()).build();
 
             //通过触发器名和cron 表达式创建 Trigger
@@ -51,7 +52,7 @@ public class QuartzManage {
                     .withSchedule(CronScheduleBuilder.cronSchedule(quartzJob.getCronExpression()))
                     .build();
 
-            cronTrigger.getJobDataMap().put(QuartzJob.JOB_KEY, quartzJob);
+            cronTrigger.getJobDataMap().put(Task.JOB_KEY, quartzJob);
 
             //重置启动时间
             ((CronTriggerImpl)cronTrigger).setStartTime(new Date());
@@ -73,7 +74,7 @@ public class QuartzManage {
      * 更新job cron表达式
      * @param quartzJob /
      */
-    public void updateJobCron(QuartzJob quartzJob){
+    public void updateJobCron(Task quartzJob){
         try {
             TriggerKey triggerKey = TriggerKey.triggerKey(JOB_NAME + quartzJob.getId());
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
@@ -86,7 +87,7 @@ public class QuartzManage {
             trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
             //重置启动时间
             ((CronTriggerImpl)trigger).setStartTime(new Date());
-            trigger.getJobDataMap().put(QuartzJob.JOB_KEY,quartzJob);
+            trigger.getJobDataMap().put(Task.JOB_KEY,quartzJob);
 
             scheduler.rescheduleJob(triggerKey, trigger);
             // 暂停任务
@@ -104,7 +105,7 @@ public class QuartzManage {
      * 删除一个job
      * @param quartzJob /
      */
-    public void deleteJob(QuartzJob quartzJob){
+    public void deleteJob(Task quartzJob){
         try {
             JobKey jobKey = JobKey.jobKey(JOB_NAME + quartzJob.getId());
             scheduler.pauseJob(jobKey);
@@ -119,7 +120,7 @@ public class QuartzManage {
      * 恢复一个job
      * @param quartzJob /
      */
-    public void resumeJob(QuartzJob quartzJob){
+    public void resumeJob(Task quartzJob){
         try {
             TriggerKey triggerKey = TriggerKey.triggerKey(JOB_NAME + quartzJob.getId());
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
@@ -139,7 +140,7 @@ public class QuartzManage {
      * 立即执行job
      * @param quartzJob /
      */
-    public void runJobNow(QuartzJob quartzJob){
+    public void runJobNow(Task quartzJob){
         try {
             TriggerKey triggerKey = TriggerKey.triggerKey(JOB_NAME + quartzJob.getId());
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
@@ -148,7 +149,7 @@ public class QuartzManage {
                 addJob(quartzJob);
             }
             JobDataMap dataMap = new JobDataMap();
-            dataMap.put(QuartzJob.JOB_KEY, quartzJob);
+            dataMap.put(Task.JOB_KEY, quartzJob);
             JobKey jobKey = JobKey.jobKey(JOB_NAME + quartzJob.getId());
             scheduler.triggerJob(jobKey,dataMap);
         } catch (Exception e){
@@ -161,7 +162,7 @@ public class QuartzManage {
      * 暂停一个job
      * @param quartzJob /
      */
-    public void pauseJob(QuartzJob quartzJob){
+    public void pauseJob(Task quartzJob){
         try {
             JobKey jobKey = JobKey.jobKey(JOB_NAME + quartzJob.getId());
             scheduler.pauseJob(jobKey);

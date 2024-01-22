@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package org.letter.console.modules.quartz.utils;
+package org.letter.console.task.utils;
 
 import lombok.extern.slf4j.Slf4j;
 import org.letter.console.utils.SpringContextHolder;

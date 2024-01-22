@@ -10,6 +10,7 @@ import org.letter.metrics.config.MetricsAutoRegistration;
 import org.letter.metrics.config.MetricsConfigProperties;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Summary;
+import org.letter.metrics.exporter.MonitorExporter;
 
 import java.io.IOException;
 import java.util.Random;
@@ -23,14 +24,14 @@ public class MonitorExporterSimple {
 	public static void main(String[] args) throws IOException {
 		//启动监控server
 		//initJmx();
-		Thread thread = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				NetUtils.getLocalAddress();
-				//MonitorExporter monitorExporter = new MonitorExporter(new MetricsConfigProperties());
-				MetricsAutoRegistration registration = new MetricsAutoRegistration();
-				registration.startRegAndExporter(new MetricsConfigProperties());
-			}
+		Thread thread = new Thread(() -> {
+			NetUtils.getLocalAddress();
+			//default port 18888
+			MetricsConfigProperties configProperties = new MetricsConfigProperties();
+			MonitorExporter monitorExporter = new MonitorExporter(configProperties);
+			System.out.println("start  http://"+ configProperties.getIp() +":" + configProperties.getPort());
+			MetricsAutoRegistration registration = new MetricsAutoRegistration();
+			registration.startRegAndExporter(new MetricsConfigProperties());
 		});
 		thread.start();
 
