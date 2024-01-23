@@ -203,7 +203,7 @@ public class UserController {
 	 *
 	 * @param resources /
 	 */
-	private void checkLevel(User resources) {
+	public void checkLevel(User resources) {
 		Integer currentLevel = Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
 		Integer optLevel = roleService.findByRoles(resources.getRoles());
 		if (currentLevel > optLevel) {

@@ -23,14 +23,6 @@ springdoc:
       theme: 'json'
   api-docs:
     path: /v3/api-docs
-  # 分组
-  #  group-configs:
-  #    - group: 'dev'
-  #      paths-to-match: '/**'
-  #    - group: 'prod'
-  #      paths-to-match: '/prod'
-  #    - group: 'test'
-  #      paths-to-match: '/test'
 
 # Knife4j增强配置
 knife4j:

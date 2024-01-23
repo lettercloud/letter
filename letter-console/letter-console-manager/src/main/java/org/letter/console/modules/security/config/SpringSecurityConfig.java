@@ -14,11 +14,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -89,17 +87,17 @@ public class SpringSecurityConfig {
 				managementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 			})
 			.authorizeRequests(registry -> {
-					Map<String, Set<String>> anonymousUrls = getAnonymousUrl(handlerMethodMap);
-					//静态资源
-					registry.requestMatchers(HttpMethod.GET,
-						"/*.html",
-						"/**/*.html",
-						"/**/*.css",
-						"/**/*.js",
+				Map<String, Set<String>> anonymousUrls = getAnonymousUrl(handlerMethodMap);
+				//静态资源
+				registry.requestMatchers(HttpMethod.GET,
+						"/**.html",
+						"/**.html",
+						"/**.css",
+						"/**.js",
 						"/webSocket/**").permitAll()
 					// swagger 文档
-					.requestMatchers("/swagger-ui.html").permitAll()
-					.requestMatchers("/swagger-resources/**").permitAll()
+					.requestMatchers("/swagger-ui/**").permitAll()
+					.requestMatchers("/v3/api-docs/**").permitAll()
 					.requestMatchers("/webjars/**").permitAll()
 					.requestMatchers("/*/api-docs").permitAll()
 					// 文件
@@ -107,6 +105,7 @@ public class SpringSecurityConfig {
 					.requestMatchers("/file/**").permitAll()
 					// 阿里巴巴 druid
 					.requestMatchers("/druid/**").permitAll()
+					.requestMatchers("/api/**").permitAll()
 					// 放行OPTIONS请求
 					.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 					// 自定义匿名访问所有url放行：允许匿名和带Token访问，细腻化到每个 Request 类型

@@ -11,15 +11,7 @@ public class OpenApiConfig {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("public")
-                .pathsToMatch("/public/**")
-                .build();
-    }
-
-    @Bean
-    public GroupedOpenApi privateApi() {
-        return GroupedOpenApi.builder()
-                .group("private")
-                .pathsToMatch("/private/**")
+                .pathsToMatch("/api/**")
                 .build();
     }
 }
