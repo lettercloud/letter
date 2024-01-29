@@ -3,10 +3,10 @@
  */
 
 dependencies {
-    api project(':letter-console:letter-console-common')
-    api project(':letter-console:letter-console-logging')
-    api "org.springframework.boot:spring-boot-starter-jdbc:${springboot_version}"
-    api ("org.springframework.boot:spring-boot-starter-quartz:${springboot_version}"){
+    implementation project(':letter-console:letter-console-common')
+    implementation project(':letter-console:letter-console-logging')
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:${springboot_version}"
+    implementation ("org.springframework.boot:spring-boot-starter-quartz:${springboot_version}"){
         exclude group: 'com.zaxxer'
     }
 

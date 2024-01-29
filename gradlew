@@ -26,7 +26,9 @@
 # Resolve links: $0 may be a link
 PRG="$0"
 if [ -n "$JAVA17_HOME" ]; then
-  JAVA_HOME="$JAVA17_HOME"
+export JAVA_HOME="$JAVA17_HOME"
+export PATH=$JAVA_HOME/bin:$PATH:.
+export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/jre/lib/rt.jar:.
 fi
 # Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
