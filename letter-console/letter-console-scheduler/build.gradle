@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':letter-console:letter-console-common')
+    testImplementation 'com.h2database:h2:2.2.222'
+}

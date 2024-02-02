@@ -13,3 +13,6 @@ include 'letter-console:letter-console-manager'
 include 'letter-console:letter-console-tasker'
 include 'letter-console:letter-console-app'
 
+include 'letter-console:letter-console-admin'
+include 'letter-console:letter-console-scheduler'
+

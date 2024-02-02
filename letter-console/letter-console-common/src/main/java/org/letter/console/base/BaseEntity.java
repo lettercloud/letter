@@ -16,6 +16,7 @@
 package org.letter.console.base;
 
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
@@ -38,15 +39,18 @@ import java.sql.Timestamp;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity implements Serializable {
 
-    @CreatedBy
-    @Column(name = "create_by", updatable = false)
-    
-    private String createBy;
 
-    @LastModifiedBy
-    @Column(name = "update_by")
-    
-    private String updateBy;
+	@Schema(description = "Timestamp of creation")
+	private Long createAt;
+
+	@Schema(description = "Creator's username")
+	private String createBy;
+
+	@Schema(description = "Timestamp of last update")
+	private Long updateAt;
+
+	@Schema(description = "Last updater's username")
+	private String updateBy;
 
     @CreationTimestamp
     @Column(name = "create_time", updatable = false)
