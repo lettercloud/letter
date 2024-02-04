@@ -1,0 +1,20 @@
+package org.letter.console.admin.user.domain.vo;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * RsaConfigVo
+ *
+ * @author letter
+ */
+@Setter
+@Getter
+public class RsaConfigVo {
+	@JsonProperty("OpenRSA")
+	private boolean openRSA;
+
+	@JsonProperty("RSAPublicKey")
+	private String rsaPublicKey = "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUE3NjBPSGhGWVZ2WUFxRW9nWHE2agpSNGtrd2R3VTdBclZrVmpUa3pYRWF3SVUwTkY1eHlWVGdmaW0yWFo3R1J5NGMwcHlaR0hNTHpSdlJ4bVdqSGFTCkVDRzYvVUd6eExsYUl5Ymd6QmpralRHZVZQcHZMZDRGbUhyS0ZpQXdZT28yUnJ2bU44SFF0cFFaK2JjMjF1aTYKWkdhRDlMUVU3Q2FqVjYvM3RMNitRQkdrS0hrZHRlY3I4SUt6QjhRQ1pZdjNiMFpwcHpiaW1OTWU0VTNnVksvLwpLOFJMbmVES1I5SkFzVk0rUkgwaGNmQU5kNTVIM2F4ZUZBUEhML3k0TmFFTWN3N01UWXljRFJxd2JwVkVGaTBPCkprWGlhcmo1b3AxUHdYRVd3c05HcjI2OU44dG5nVktDSjI0TFFXbHFhWmFkYTFTUzhZNjlGYXFqUDJwcGdCZ3MKZ3dJREFRQUIKLS0tLS1FTkQgUFVCTElDIEtFWS0tLS0tCg==";
+}

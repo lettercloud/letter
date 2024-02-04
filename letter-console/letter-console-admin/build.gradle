@@ -1,4 +1,9 @@
 dependencies {
     implementation project(':letter-console:letter-console-common')
+    implementation "io.jsonwebtoken:jjwt-api:${jjwt_version}"
+    implementation "io.jsonwebtoken:jjwt-impl:${jjwt_version}"
+    implementation "io.jsonwebtoken:jjwt-jackson:${jjwt_version}"
+//    implementation "org.springframework.boot:spring-boot-starter-security:${springboot_version}"
+    testImplementation 'com.github.codemonstur:embedded-redis:1.4.0'
     testImplementation 'com.h2database:h2:2.2.222'
 }

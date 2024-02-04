@@ -1,18 +1,21 @@
 spring:
   datasource:
-    url: jdbc:h2:./data/localdata
+    url: jdbc:h2:./data/localdata;MODE=MySQL
     driver-class-name: org.h2.Driver
     username: test
     password: 123456
-  #  jpa:
-  #    database: h2
-  #    show-sql: true
-  #    open-in-view: true   #这个是为了进行视图显示，SpringBoot提示的Warn
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
   h2:
     console:
       enabled: true
       path: /h2-console
-
+security:
+  basic:
+    enabled: false
 # spring doc
 springdoc:
   swagger-ui:
@@ -23,24 +26,3 @@ springdoc:
       theme: 'json'
   api-docs:
     path: /v3/api-docs
-  # 分组
-  #  group-configs:
-  #    - group: 'dev'
-  #      paths-to-match: '/**'
-  #    - group: 'prod'
-  #      paths-to-match: '/prod'
-  #    - group: 'test'
-  #      paths-to-match: '/test'
-
-# Knife4j增强配置
-knife4j:
-  enable: true
-  setting:
-    language: zh_cn
-    swagger-model-name: '对象模型'
-    enable-swagger-models: true
-    enable-dynamic-parameter: false
-    footer-custom-content: "<strong>Copyright ©️ 2023 XXX. All Rights Reversed</strong>"
-    enable-footer-custom: true
-    enable-footer: true
-    enable-document-manage: true
