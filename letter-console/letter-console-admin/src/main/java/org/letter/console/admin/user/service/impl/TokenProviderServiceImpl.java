@@ -9,7 +9,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.letter.console.admin.config.SecurityProperties;
+import org.letter.console.admin.config.properties.SecurityProperties;
 import org.letter.console.admin.user.service.CacheProxy;
 import org.letter.console.admin.user.service.TokenProviderService;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * TokenProviderServiceImpl
+ *
  * @author letter
  */
 @Slf4j

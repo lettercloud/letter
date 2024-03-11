@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @author letter
  */
 public interface BusiGroupRepository extends JpaRepository<BusiGroup, Long>, JpaSpecificationExecutor<BusiGroup> {
-	
+
 }

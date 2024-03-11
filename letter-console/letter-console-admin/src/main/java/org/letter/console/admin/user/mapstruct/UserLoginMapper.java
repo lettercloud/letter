@@ -8,6 +8,7 @@ import org.mapstruct.ReportingPolicy;
 
 /**
  * UserLoginMapper
+ *
  * @author letter
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)

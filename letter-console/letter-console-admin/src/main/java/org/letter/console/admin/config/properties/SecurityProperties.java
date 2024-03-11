@@ -1,10 +1,11 @@
-package org.letter.console.admin.config;
+package org.letter.console.admin.config.properties;
 
 import lombok.Data;
 
 /**
  * SecurityProperties
  * 安全配置
+ *
  * @author letter
  **/
 @Data

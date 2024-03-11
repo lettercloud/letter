@@ -1,9 +1,54 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+
+    /************************Add************************/
+    id 'org.graalvm.buildtools.native' version '0.9.20'
+    /**********************Add End**********************/
+}
+bootJar {
+    duplicatesStrategy = DuplicatesStrategy.WARN // 当有重复依赖时给出警告
+}
+
+springBoot {
+    mainClass = 'org.letter.console.admin.AdminRun'
+}
+
 dependencies {
     implementation project(':letter-console:letter-console-common')
     implementation "io.jsonwebtoken:jjwt-api:${jjwt_version}"
     implementation "io.jsonwebtoken:jjwt-impl:${jjwt_version}"
     implementation "io.jsonwebtoken:jjwt-jackson:${jjwt_version}"
-//    implementation "org.springframework.boot:spring-boot-starter-security:${springboot_version}"
+    implementation "org.springframework.boot:spring-boot-starter-security:${springboot_version}"
     testImplementation 'com.github.codemonstur:embedded-redis:1.4.0'
     testImplementation 'com.h2database:h2:2.2.222'
 }
+
+
+/**************************Add**********************************/
+//原生构建参数  
+graalvmNative {
+    binaries {
+        main {
+            //指定程序的主函数入口，SpringBoot可以不用写
+            //mainClass = 'mscript.MScriptApplication'
+            //自动检测资源  
+            resources.autodetect()
+            //--initialize-at-build-time修复Log4j无法找到的问题，如果编的时候有其它Class找不到，但正常运行jar包又没问题，可以尝试把报错  
+            //的Class加到这里，多个Class用逗号分隔，-H:+ReportExceptionStackTraces表示出错了打印堆栈  
+            buildArgs[
+                    "--initialize-at-build-time=org.slf4j.LoggerFactory" +
+                            ",ch.qos.logback.classic.Logger" +
+                            ",ch.qos.logback.core.status.InfoStatus" +
+                            ",ch.qos.logback.classic.Level" +
+                            ",ch.qos.logback.core.util.Loader" +
+                            ",ch.qos.logback.core.util.StatusPrinter",
+                    "--trace-object-instantiation=java.util.jar.JarFile",
+                    "-H:+ReportExceptionStackTraces",
+            ]
+            toolchainDetection = false
+        }
+    }
+}
+

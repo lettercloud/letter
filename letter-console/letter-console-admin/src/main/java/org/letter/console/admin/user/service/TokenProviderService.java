@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 
 /**
  * TokenProviderService
- * 
+ *
  * @author letter
  */
 public interface TokenProviderService {

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * BusiGroupController
- * 
+ *
  * @author letter
  */
 @Slf4j
@@ -22,10 +22,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "业务组")
 public class BusiGroupController {
 	private BusiGroupService busiGroupService;
-    @Operation(summary = "get business group list")
-    @AnonymousGetMapping(value = "/")
-    public Object getGroup() throws Exception {
-       return ServerResponse.build("", "");
-    }
+
+	@Operation(summary = "get business group list")
+	@AnonymousGetMapping(value = "/")
+	public Object getGroup() throws Exception {
+		return ServerResponse.build("", "");
+	}
 
 }

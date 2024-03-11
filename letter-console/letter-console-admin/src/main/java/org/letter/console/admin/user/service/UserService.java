@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  * UserService
- * 
+ *
  * @author letter
  */
 public interface UserService {

@@ -10,7 +10,7 @@ import org.letter.console.admin.user.domain.vo.SsoConfigVo;
 public interface AuthConfigService {
 	/**
 	 * getConfig
-	 * 
+	 *
 	 * @return
 	 */
 	SsoConfigVo getSsoConfig();
@@ -28,4 +28,25 @@ public interface AuthConfigService {
 	 * @return
 	 */
 	RsaConfigVo getRsaConfig();
+
+	/**
+	 * getRsaPublicKey
+	 *
+	 * @return
+	 */
+	String getRsaPublicKey();
+
+	/**
+	 * getRsaPrivateKey
+	 *
+	 * @return
+	 */
+	String getRsaPrivateKey();
+
+	/**
+	 * getRsaPrivateKey
+	 *
+	 * @return
+	 */
+	boolean isOpenRsa();
 }

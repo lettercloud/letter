@@ -15,13 +15,13 @@ public class UserQueryCriteria implements Serializable {
 
 	@Query
 	private Long id;
-	
+
 	@Query(blurry = "email,username,nickName")
 	private String blurry;
 
 	@Query
 	private Boolean enabled;
-	
+
 
 	@Query(type = Query.Type.BETWEEN)
 	private List<Timestamp> createTime;

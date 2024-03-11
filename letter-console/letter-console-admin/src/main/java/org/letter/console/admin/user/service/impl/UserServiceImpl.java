@@ -3,16 +3,16 @@ package org.letter.console.admin.user.service.impl;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.letter.console.admin.user.domain.User;
-import org.letter.console.admin.user.repository.UserRepository;
-import org.letter.console.admin.user.service.CacheProxy;
-import org.letter.console.admin.user.service.UserCacheManager;
-import org.letter.console.admin.user.service.UserOnlineService;
-import org.letter.console.admin.user.service.UserService;
 import org.letter.console.admin.user.domain.dto.UserDto;
 import org.letter.console.admin.user.domain.dto.UserLoginDto;
 import org.letter.console.admin.user.domain.dto.UserQueryCriteria;
 import org.letter.console.admin.user.mapstruct.UserLoginMapper;
 import org.letter.console.admin.user.mapstruct.UserMapper;
+import org.letter.console.admin.user.repository.UserRepository;
+import org.letter.console.admin.user.service.CacheProxy;
+import org.letter.console.admin.user.service.UserCacheManager;
+import org.letter.console.admin.user.service.UserOnlineService;
+import org.letter.console.admin.user.service.UserService;
 import org.letter.console.exception.EntityExistException;
 import org.letter.console.exception.EntityNotFoundException;
 import org.letter.console.utils.*;
@@ -29,6 +29,7 @@ import java.util.*;
 
 /**
  * UserServiceImpl
+ *
  * @author letter
  */
 @Service
@@ -168,7 +169,9 @@ public class UserServiceImpl implements UserService {
 		if (user == null) {
 			throw new EntityNotFoundException(User.class, "name", userName);
 		} else {
-			return userLoginMapper.toDto(user);
+			UserLoginDto loginDto = userLoginMapper.toDto(user);
+			loginDto.setEnabled(true);
+			return loginDto;
 		}
 	}
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * UserOnlineService
- * 
+ *
  * @author letter
  */
 public interface UserOnlineService {

@@ -5,14 +5,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.letter.console.admin.config.SecurityProperties;
-import org.letter.console.admin.config.UserLoginProperties;
+import org.letter.console.admin.config.properties.SecurityProperties;
+import org.letter.console.admin.config.properties.UserLoginProperties;
+import org.letter.console.admin.user.domain.dto.AuthUserDto;
+import org.letter.console.admin.user.domain.dto.UserDto;
 import org.letter.console.admin.user.service.AuthConfigService;
 import org.letter.console.admin.user.service.TokenProviderService;
 import org.letter.console.admin.user.service.UserOnlineService;
 import org.letter.console.admin.user.service.UserService;
-import org.letter.console.admin.user.domain.dto.AuthUserDto;
-import org.letter.console.admin.user.domain.dto.UserDto;
 import org.letter.console.admin.utils.ServerResponse;
 import org.letter.console.annotation.rest.AnonymousDeleteMapping;
 import org.letter.console.annotation.rest.AnonymousGetMapping;
@@ -35,6 +35,7 @@ import java.util.Map;
 
 /**
  * AuthController
+ *
  * @author letter
  */
 @Slf4j
@@ -44,8 +45,6 @@ import java.util.Map;
 @Tag(name = "系统鉴权及配置")
 public class AuthController {
 	private final TokenProviderService tokenProviderService;
-	private final SecurityProperties properties;
-	private final UserLoginProperties loginProperties;
 	private final UserService userService;
 	private final UserOnlineService userOnlineService;
 	private final AuthConfigService authConfigService;
@@ -53,28 +52,29 @@ public class AuthController {
 	@Operation(summary = "sso配置信息")
 	@AnonymousGetMapping(value = "/sso-config")
 	public Object ssoConfig() throws Exception {
-		return ServerResponse.build( authConfigService.getSsoConfig(), "");
+		return ServerResponse.build(authConfigService.getSsoConfig(), "");
 	}
 
 	@Operation(summary = "是否显示验证码")
 	@AnonymousGetMapping(value = "/ifshowcaptcha")
 	public Object showCaptcha() throws Exception {
-		return ServerResponse.build( authConfigService.getShowCaptcha(), "");
+		return ServerResponse.build(authConfigService.getShowCaptcha(), "");
 	}
 
 	@Operation(summary = "rsa配置信息")
 	@AnonymousGetMapping(value = "/rsa-config")
 	public Object rsaConfig() throws Exception {
-		return ServerResponse.build( authConfigService.getRsaConfig(), "");
+		return ServerResponse.build(authConfigService.getRsaConfig(), "");
 	}
 
 	@Operation(summary = "登录授权")
 	@AnonymousPostMapping(value = "/login")
 	public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
 		// 密码解密
-		String password = authUser.getPassword();;
-		if (authConfigService.getRsaConfig().isOpenRSA()){
-			password = RsaUtils.decryptByPrivateKey(authConfigService.getRsaConfig().getRsaPublicKey(), authUser.getPassword());
+		String password = authUser.getPassword();
+		;
+		if (authConfigService.getRsaConfig().isOpenRSA()) {
+			password = RsaUtils.decryptByPrivateKey(authConfigService.getRsaPrivateKey(), authUser.getPassword());
 		}
 		UsernamePasswordAuthenticationToken authenticationToken =
 			new UsernamePasswordAuthenticationToken(authUser.getUsername(), password);

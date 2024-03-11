@@ -26,7 +26,7 @@ public class UserDto extends BaseDTO implements Serializable {
 	private String email;
 
 	private String phone;
-	
+
 
 	@JSONField(serialize = false)
 	@JsonIgnore

@@ -25,8 +25,8 @@
 # Attempt to set APP_HOME
 # Resolve links: $0 may be a link
 PRG="$0"
-if [ -n "$JAVA17_HOME" ]; then
-export JAVA_HOME="$JAVA17_HOME"
+if [ -n "$GRAALVM_HOME" ]; then
+export JAVA_HOME="$GRAALVM_HOME"
 export PATH=$JAVA_HOME/bin:$PATH:.
 export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/jre/lib/rt.jar:.
 fi

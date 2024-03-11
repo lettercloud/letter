@@ -4,11 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.letter.console.admin.config.UserRsaProperties;
 import org.letter.console.admin.user.domain.User;
-import org.letter.console.admin.user.service.UserService;
 import org.letter.console.admin.user.domain.dto.UserDto;
 import org.letter.console.admin.user.domain.dto.UserQueryCriteria;
+import org.letter.console.admin.user.service.AuthConfigService;
+import org.letter.console.admin.user.service.UserService;
 import org.letter.console.exception.BadRequestException;
 import org.letter.console.utils.PageResult;
 import org.letter.console.utils.RsaUtils;
@@ -27,7 +27,7 @@ import java.util.Set;
 
 /**
  * UserController
- * 
+ *
  * @author letter
  */
 @Tag(name = "用户管理")
@@ -38,7 +38,7 @@ public class UserController {
 
 	private final PasswordEncoder passwordEncoder;
 	private final UserService userService;
-	private final UserRsaProperties userRsaProperties;
+	private final AuthConfigService authConfigService;
 
 	@Operation(summary = "导出用户数据")
 	@GetMapping(value = "/download")
@@ -124,7 +124,7 @@ public class UserController {
 	@Operation(summary = "修改邮箱")
 	@PostMapping(value = "/updateEmail/{code}")
 	public ResponseEntity<Object> updateUserEmail(@PathVariable String code, @RequestBody User user) throws Exception {
-		String password = RsaUtils.decryptByPrivateKey(userRsaProperties.getPrivateKey(), user.getPassword());
+		String password = RsaUtils.decryptByPrivateKey(authConfigService.getRsaConfig().getRsaPublicKey(), user.getPassword());
 		UserDto userDto = userService.findByName(SecurityUtils.getCurrentUsername());
 		if (!passwordEncoder.matches(password, userDto.getPassword())) {
 			throw new BadRequestException("密码错误");
@@ -132,5 +132,5 @@ public class UserController {
 		userService.updateEmail(userDto.getUsername(), user.getEmail());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 }

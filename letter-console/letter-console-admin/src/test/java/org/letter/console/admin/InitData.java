@@ -2,18 +2,35 @@ package org.letter.console.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import org.letter.console.admin.user.domain.User;
+import org.letter.console.admin.user.service.UserService;
 
 /**
  * InitData
+ *
  * @author letter
  */
 public class InitData {
-	public static void main(String[] args) {
-		
-		
+	
+	public static InitData getInstance(){
+		return INSTANCE;
+	}
+
+	/**
+	 * 仅供测试使用
+	 * 
+	 */
+	private static InitData INSTANCE = new InitData();
+	
+	public void initUser(UserService userService){
+		try {
+			userService.create(getUser());
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+
 	}
 	
-	public User getUser(){
+	public User getUser() {
 		String data = """
 			{
 				"contacts":"string",

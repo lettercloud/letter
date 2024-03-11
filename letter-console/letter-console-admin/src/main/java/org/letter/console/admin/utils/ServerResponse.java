@@ -5,6 +5,7 @@ import lombok.Setter;
 
 /**
  * ServerResponse
+ *
  * @author letter
  */
 @Getter
@@ -18,7 +19,7 @@ public class ServerResponse {
 		this.err = err;
 	}
 
-	public static ServerResponse build(Object dat, Object err){
+	public static ServerResponse build(Object dat, Object err) {
 		return new ServerResponse(dat, err);
 	}
 }

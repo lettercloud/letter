@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * InfoController
+ *
  * @author letter
  */
 @Slf4j
@@ -20,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @Tag(name = "system information")
 public class InfoController {
-	
-	
-    @Operation(summary = "current information")
-    @AnonymousGetMapping(value = "/")
-    public Object status(@RequestParam("key") String key) throws Exception {
-       return ServerResponse.build("", "");
-    }
+
+
+	@Operation(summary = "current information")
+	@AnonymousGetMapping(value = "")
+	public Object status(@RequestParam("key") String key) throws Exception {
+		return ServerResponse.build("", "");
+	}
 
 }

@@ -2,10 +2,10 @@ package org.letter.console.admin.user.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
 import lombok.RequiredArgsConstructor;
-import org.letter.console.admin.config.UserLoginProperties;
+import org.letter.console.admin.config.properties.UserLoginProperties;
+import org.letter.console.admin.user.domain.dto.JwtUserDto;
 import org.letter.console.admin.user.service.CacheProxy;
 import org.letter.console.admin.user.service.UserCacheManager;
-import org.letter.console.admin.user.domain.dto.JwtUserDto;
 import org.letter.console.utils.StringUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class UserCacheManagerImpl implements UserCacheManager {
 
 
-	private final CacheProxy redisService;
+	private final CacheProxy cacheProxy;
 
 	private final UserLoginProperties loginProperties;
 
@@ -33,7 +33,7 @@ public class UserCacheManagerImpl implements UserCacheManager {
 	public JwtUserDto getUserCache(String userName) {
 		if (StringUtils.isNotEmpty(userName)) {
 			// 获取数据
-			Object obj = redisService.get(UserLoginProperties.cacheKey + userName);
+			Object obj = cacheProxy.get(UserLoginProperties.cacheKey + userName);
 			if (obj != null) {
 				return (JwtUserDto) obj;
 			}
@@ -51,7 +51,7 @@ public class UserCacheManagerImpl implements UserCacheManager {
 		if (StringUtils.isNotEmpty(userName)) {
 			// 添加数据, 避免数据同时过期
 			long time = loginProperties.getCacheIdleTime() + RandomUtil.randomInt(900, 1800);
-			redisService.set(UserLoginProperties.cacheKey + userName, user, time);
+			cacheProxy.set(UserLoginProperties.cacheKey + userName, user, time);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class UserCacheManagerImpl implements UserCacheManager {
 	public void cleanUserCache(String userName) {
 		if (StringUtils.isNotEmpty(userName)) {
 			// 清除数据
-			redisService.del(UserLoginProperties.cacheKey + userName);
+			cacheProxy.del(UserLoginProperties.cacheKey + userName);
 		}
 	}
 }

@@ -5,6 +5,7 @@ import org.letter.console.admin.user.domain.dto.JwtUserDto;
 
 /**
  * UserCacheManager
+ *
  * @author letter
  */
 public interface UserCacheManager {
