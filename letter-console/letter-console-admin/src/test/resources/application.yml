@@ -13,9 +13,9 @@ spring:
     console:
       enabled: true
       path: /h2-console
-security:
-  basic:
-    enabled: false
+logging:
+  level:
+    root: trace    
 # spring doc
 springdoc:
   swagger-ui:

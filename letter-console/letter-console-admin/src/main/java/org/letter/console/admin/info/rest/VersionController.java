@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.letter.console.admin.info.domain.vo.SystemVersion;
 import org.letter.console.admin.utils.ServerResponse;
 import org.letter.console.annotation.rest.AnonymousGetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class VersionController {
 
 
 	@Operation(summary = "current version")
-	@AnonymousGetMapping(value = "/")
+	@GetMapping(value = "/")
 	public Object version() throws Exception {
 		return ServerResponse.build(new SystemVersion(), "");
 	}

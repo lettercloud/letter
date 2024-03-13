@@ -25,10 +25,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,25 +47,25 @@ public class AuthController {
 	private final AuthConfigService authConfigService;
 
 	@Operation(summary = "sso配置信息")
-	@AnonymousGetMapping(value = "/sso-config")
+	@GetMapping(value = "/sso-config")
 	public Object ssoConfig() throws Exception {
 		return ServerResponse.build(authConfigService.getSsoConfig(), "");
 	}
 
 	@Operation(summary = "是否显示验证码")
-	@AnonymousGetMapping(value = "/ifshowcaptcha")
+	@GetMapping(value = "/ifshowcaptcha")
 	public Object showCaptcha() throws Exception {
 		return ServerResponse.build(authConfigService.getShowCaptcha(), "");
 	}
 
 	@Operation(summary = "rsa配置信息")
-	@AnonymousGetMapping(value = "/rsa-config")
+	@GetMapping(value = "/rsa-config")
 	public Object rsaConfig() throws Exception {
 		return ServerResponse.build(authConfigService.getRsaConfig(), "");
 	}
 
 	@Operation(summary = "登录授权")
-	@AnonymousPostMapping(value = "/login")
+	@PostMapping(value = "/login")
 	public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
 		// 密码解密
 		String password = authUser.getPassword();
@@ -99,7 +96,7 @@ public class AuthController {
 
 
 	@Operation(summary = "退出登录")
-	@AnonymousDeleteMapping(value = "/logout")
+	@DeleteMapping(value = "/logout")
 	public ResponseEntity<Object> logout(HttpServletRequest request) {
 		userOnlineService.logout(tokenProviderService.getToken(request));
 		return new ResponseEntity<>(HttpStatus.OK);

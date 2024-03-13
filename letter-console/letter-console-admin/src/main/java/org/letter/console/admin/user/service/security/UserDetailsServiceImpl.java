@@ -1,4 +1,4 @@
-package org.letter.console.admin.user.service.impl;
+package org.letter.console.admin.user.service.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +15,12 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 /**
- * @author Zheng Jie
- * @date 2018-11-22
+ * UserDetailsServiceImpl
+ * 
+ * @author letter
  */
 @Slf4j
 @RequiredArgsConstructor
-@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 	private final UserService userService;
 	private final UserCacheManager userCacheManager;

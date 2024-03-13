@@ -8,6 +8,7 @@ import org.letter.console.admin.user.domain.dto.UserDto;
 import org.letter.console.admin.user.service.UserService;
 import org.letter.console.admin.utils.ServerResponse;
 import org.letter.console.annotation.rest.AnonymousGetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,7 @@ public class SelfController {
 	private final UserService userService;
 
 	@Operation(summary = "个人信息")
-	@AnonymousGetMapping(value = "/profile")
+	@GetMapping(value = "/profile")
 	public Object ssoConfig() throws Exception {
 		return ServerResponse.build(new UserDto(), "");
 	}

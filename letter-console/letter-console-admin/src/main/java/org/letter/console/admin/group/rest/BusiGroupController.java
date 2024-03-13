@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.letter.console.admin.group.service.BusiGroupService;
 import org.letter.console.admin.utils.ServerResponse;
 import org.letter.console.annotation.rest.AnonymousGetMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,7 +25,7 @@ public class BusiGroupController {
 	private BusiGroupService busiGroupService;
 
 	@Operation(summary = "get business group list")
-	@AnonymousGetMapping(value = "/")
+	@GetMapping(value = "/")
 	public Object getGroup() throws Exception {
 		return ServerResponse.build("", "");
 	}
