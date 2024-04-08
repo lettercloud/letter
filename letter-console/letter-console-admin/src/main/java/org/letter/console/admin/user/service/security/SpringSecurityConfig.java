@@ -78,24 +78,25 @@ public class SpringSecurityConfig {
 	@Bean
 	public SecurityFilterChain filterUrlChain(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity
-//			.csrf(csrfConfigurer -> {
-//				// 启用 CSRF 防护
-//				csrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
-//			})
-//			.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
-//			.exceptionHandling(configurer -> {
-//				// 授权异常
-//				configurer.authenticationEntryPoint(authenticationErrorHandler);
-//				configurer.accessDeniedHandler(jwtAccessDeniedHandler);
-//			})
-//			.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptionsConfig -> {
-//				//disable frame option
-//				frameOptionsConfig.disable();
-//			}))
-//			.sessionManagement(managementConfigurer -> {
-//				//STATELESS
-//				managementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//			})
+			.csrf(csrfConfigurer -> {
+				// 启用 CSRF 防护
+				csrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+					.ignoringRequestMatchers("/api/n9e/auth/**");
+			})
+			.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
+			.exceptionHandling(configurer -> {
+				// 授权异常
+				configurer.authenticationEntryPoint(authenticationErrorHandler);
+				configurer.accessDeniedHandler(jwtAccessDeniedHandler);
+			})
+			.headers(headersConfigurer -> headersConfigurer.frameOptions(frameOptionsConfig -> {
+				//disable frame option
+				frameOptionsConfig.disable();
+			}))
+			.sessionManagement(managementConfigurer -> {
+				//STATELESS
+				managementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			})
 			.authorizeRequests(registry -> {
 				//静态资源
 				registry.requestMatchers(HttpMethod.GET,

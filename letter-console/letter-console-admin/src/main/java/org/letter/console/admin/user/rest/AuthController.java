@@ -69,7 +69,6 @@ public class AuthController {
 	public ResponseEntity<Object> login(@Validated @RequestBody AuthUserDto authUser, HttpServletRequest request) throws Exception {
 		// 密码解密
 		String password = authUser.getPassword();
-		;
 		if (authConfigService.getRsaConfig().isOpenRSA()) {
 			password = RsaUtils.decryptByPrivateKey(authConfigService.getRsaPrivateKey(), authUser.getPassword());
 		}
