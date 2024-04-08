@@ -14,6 +14,7 @@ public class TestRedisServer {
 		try {
 			RedisServer redisServer = new RedisServer(6379);
 			redisServer.start();
+			System.out.println("start ok");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

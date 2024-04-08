@@ -1,4 +1,6 @@
 rootProject.name = 'letter'
+//letter-api
+include 'letter-api:letter-api-user'
 //letter-boot
 include 'letter-boot:letter-boot-loader'
 include 'letter-boot:letter-metrics-starter'
