@@ -81,7 +81,7 @@ public class SpringSecurityConfig {
 			.csrf(csrfConfigurer -> {
 				// 启用 CSRF 防护
 				csrfConfigurer.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-					.ignoringRequestMatchers("/api/n9e/auth/**");
+					.ignoringRequestMatchers("/**");
 			})
 			.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 			.exceptionHandling(configurer -> {
