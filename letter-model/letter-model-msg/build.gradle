@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'com.google.protobuf' version '0.8.16' // 添加 protobuf 插件
+}
+protobuf {
+    protoc { // 配置 protoc 编译器
+        artifact = 'com.google.protobuf:protoc:3.18.0'
+    }
+    generatedFilesBaseDir = "$projectDir/src"
+}
+sourceSets {
+    main {
+        proto { // 指定源文件目录
+            srcDirs = ['src/main/proto']
+        }
+    }
+}
+dependencies {
+    api project(':letter-boot:letter-boot-loader')
+    implementation 'com.google.protobuf:protobuf-java:3.18.0' // 添加 protobuf-java 依赖
+}

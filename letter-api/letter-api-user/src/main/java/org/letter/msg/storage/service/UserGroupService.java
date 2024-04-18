@@ -1,4 +1,4 @@
-package org.letter.api.user.service;
+package org.letter.msg.storage.service;
 
 /**
  * @author wuhao

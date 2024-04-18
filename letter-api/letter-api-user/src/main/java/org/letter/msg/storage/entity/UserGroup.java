@@ -1,4 +1,4 @@
-package org.letter.api.user.entity;
+package org.letter.msg.storage.entity;
 
 /**
  * @author wuhao
@@ -6,5 +6,5 @@ package org.letter.api.user.entity;
  * @createTime 2024/04/08 23:00:00
  */
 
-public class User {
+public class UserGroup {
 }
